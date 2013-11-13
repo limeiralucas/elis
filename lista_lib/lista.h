@@ -37,6 +37,9 @@ class Lista{
 		No<T>* getPri();
 		No<T>* getUlt();
 		
+		//get por posição
+		T get(int pos);
+		
 		//operações
 		//inserção
 		void inserir(T v);

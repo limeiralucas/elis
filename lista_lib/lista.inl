@@ -41,6 +41,20 @@ No<T>* Lista<T>::getPri(){ return this->pri->getProx(); } //primeiro elemento
 template <class T>
 No<T>* Lista<T>::getUlt(){ return this->ult->getAnt(); } //ultimo elemento
 
+//get por posição
+template <class T>
+T Lista<T>::get(int pos){
+	if(pos < this->tam){
+		No<T>* aux = this->pri;
+		for(int i = 0; i <= pos; i++)
+			aux = aux->getProx();
+		
+		return aux->getValor();
+	}
+	else
+		return (-1);
+}
+
 //operações
 //inserção
 template <class T>
