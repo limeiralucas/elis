@@ -3,7 +3,6 @@
 #include <list>
 #include <string>
 #include <cstdlib>
-#include <conio.h>
 
 using namespace std;
 
@@ -30,10 +29,11 @@ int main(int argc, char** argv) {
 	if(file.is_open())
 	{
 		while(!exit){
+            int line_count = 1;
             file.clear();
 			system("clear");
 			for (std::list<string>::iterator it=scr.begin(); it != scr.end(); ++it){
-				cout << *it << endl;
+				cout << line_count++ << " " << *it << endl;
 			}
 			getline(std::cin, tmp);
 			if(tmp == "eof")
