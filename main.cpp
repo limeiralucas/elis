@@ -61,6 +61,7 @@ int main(int argc, char** argv) {
 	bool detect = false;
 	bool overwrite = false;
 	int line_edit;
+	list<string>::iterator it_aux;
 	string line_buffer = "";
 	list<string> buffer;
 	
@@ -75,25 +76,57 @@ int main(int argc, char** argv) {
 		line_edit = getConsoleLine() - 1;
 		while(detect){
 			key = getch();
-			switch(key){
-				case 0x1B:
-					menu(detect, exit, buffer, tmp, overwrite);
-				break;
-				case 0x0D:
-					buffer.push_back(line_buffer);
-					detect = false;
-				break;
-				case 0x08:
-					if(!line_buffer.empty())
-						line_buffer.erase(line_buffer.end()-1);
-				break;
-				default:
-					line_buffer += key;
-					cout << key;
-				break;
+			if(kbhit()){
+				key = getch();
+				switch(key){
+					case 72:
+						if(line_edit > 1){
+							line_edit--;
+							it_aux = buffer.begin();
+							advance(it_aux, line_edit-1);
+							line_buffer = *it_aux;
+						}
+					break;
+					case 80:
+						if(line_edit < getConsoleLine() - 1){
+							line_edit++;
+							it_aux = buffer.begin();
+							advance(it_aux, line_edit-1);
+							line_buffer = *it_aux;
+						}
+					break;
+					case 75:
+						//LEFT;
+					break;
+					case 77:
+						//RIGHT;
+					break;
+					default:
+					break;
+				}
+			}else{
+				switch(key){
+					case 0x1B:
+						menu(detect, exit, buffer, tmp, overwrite);
+					break;
+					case 0x0D:
+						if(line_edit == getConsoleLine() - 1)
+							buffer.push_back(line_buffer);
+						else
+							(*it_aux) = line_buffer;
+						detect = false;
+					break;
+					case 0x08:
+						if(!line_buffer.empty())
+							line_buffer.erase(line_buffer.end()-1);
+					break;
+					default:
+						line_buffer += key;
+					break;
+				}
 			}
 			flip_screen(buffer);
-			cout << line_edit << "> " <<line_buffer;
+			cout << line_edit << "> " << line_buffer;
 		}
 		detect = true;
 		line_buffer = "";
