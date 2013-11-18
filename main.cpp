@@ -60,6 +60,7 @@ int main(int argc, char** argv) {
 	bool exit = false;
 	bool detect = false;
 	bool overwrite = false;
+	int line_edit;
 	string line_buffer = "";
 	list<string> buffer;
 	
@@ -71,6 +72,7 @@ int main(int argc, char** argv) {
 	
 	while(!exit){
 		flip_screen(buffer);
+		line_edit = getConsoleLine() - 1;
 		while(detect){
 			key = getch();
 			switch(key){
@@ -82,7 +84,8 @@ int main(int argc, char** argv) {
 					detect = false;
 				break;
 				case 0x08:
-					line_buffer += "\b \b";
+					if(!line_buffer.empty())
+						line_buffer.erase(line_buffer.end()-1);
 				break;
 				default:
 					line_buffer += key;
@@ -90,7 +93,7 @@ int main(int argc, char** argv) {
 				break;
 			}
 			flip_screen(buffer);
-			cout << line_buffer;
+			cout << line_edit << "> " <<line_buffer;
 		}
 		detect = true;
 		line_buffer = "";
