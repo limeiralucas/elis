@@ -24,10 +24,14 @@ void flip_screen(list<string> &buffer){
 	cout << "--------------------------------\n";
 }
 
-void file_load(ifstream &file, list<string> &buffer){
+void file_load(string filename, list<string> &buffer){
+	ifstream file;
 	string line;
+	
+	file.open(filename.c_str());
 	while(getline(file, line))
 		buffer.push_back(line);
+	file.close();
 }
 
 void save(list<string> &buffer){
@@ -64,6 +68,17 @@ void menu(bool &detect, bool &exit, list<string> &buffer){
 			detect = false;
 			exit = true;
 		break;
+		case 'e':
+		case 'E':
+			if(!(cmd[1].empty())){
+				filename = cmd[1];
+				file_load(filename, buffer);
+				detect = false;
+			}else{
+				cout << "Nome de arquivo inválido";
+				_sleep(1000);
+			}
+		break;
 		default:
 		break;
 	}
@@ -81,10 +96,7 @@ int main(int argc, char** argv) {
 	list<string>::iterator it_aux;
 	string line_buffer = "";
 	
-	ifstream file;
-	file.open(filename.c_str());
-	file_load(file, buffer);
-	file.close();
+	file_load(filename, buffer);
 	
 	while(!exit){
 		flip_screen(buffer);
@@ -105,9 +117,12 @@ int main(int argc, char** argv) {
 					case 80:
 						if(line_edit < getConsoleLine() - 1){
 							line_edit++;
-							it_aux = buffer.begin();
-							advance(it_aux, line_edit-1);
-							line_buffer = *it_aux;
+							if(line_edit != getConsoleLine() - 1){
+								it_aux = buffer.begin();
+								advance(it_aux, line_edit-1);
+								line_buffer = *it_aux;
+							}
+							else line_buffer = "";
 						}
 					break;
 					case 75:
