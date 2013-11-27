@@ -28,7 +28,8 @@ void file_load(string filename, list<string> &buffer){
 	ifstream file;
 	string line;
 	
-	file.open(filename.c_str());
+	buffer.clear();
+	file.open(filename.c_str(), ios::app);
 	while(getline(file, line))
 		buffer.push_back(line);
 	file.close();
