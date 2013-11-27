@@ -9,7 +9,8 @@
 
 using namespace std;
 
-/* run this program using the console pauser or add your own getch, system("pause") or input loop */
+string filename = "new.txt";
+
 int getConsoleLine(){
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
     if(GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi))
@@ -29,26 +30,39 @@ void file_load(ifstream &file, list<string> &buffer){
 		buffer.push_back(line);
 }
 
-void save(list<string> &buffer, ofstream &destination){
+void save(list<string> &buffer){
+	ofstream tmp;
+	tmp.open(filename.c_str(), ios::out | ios::trunc);
 	for(list<string>::iterator i = buffer.begin(); i != buffer.end(); i++)
-		destination << *i << "\n";
+		tmp << *i << "\n";
+	tmp.close();
 }
 
-void menu(bool &detect, bool &exit, list<string> &buffer, ofstream &destination, bool &overwrite){
-	char key;
-	cout << "\nW - Write\tQ - Quit";
-	cout << "\n:";
-	key = getch();
-	switch(key){
+void menu(bool &detect, bool &exit, list<string> &buffer){
+	string cmd[2];
+	flip_screen(buffer);
+	cout << ": ";
+	getline(cin, cmd[0]);
+	
+	if(cmd[0].find(' ') != string::npos)
+	{
+		cmd[1] = cmd[0].substr(cmd[0].find(' ')+1);
+		cmd[0] = cmd[0].substr(0, cmd[0].find(' '));
+	}
+	
+	switch(cmd[0].c_str()[0]){
 		case 'w':
 		case 'W':
-			save(buffer, destination);
+			if(!(cmd[1].empty()))
+				filename = cmd[1];
+			save(buffer);
+			cout << "saved";
+			_sleep(1000);
 		break;
 		case 'q':
 		case 'Q':
 			detect = false;
 			exit = true;
-			overwrite = true;
 		break;
 		default:
 		break;
@@ -56,20 +70,21 @@ void menu(bool &detect, bool &exit, list<string> &buffer, ofstream &destination,
 }
 
 int main(int argc, char** argv) {
+	if(argv[1])
+		filename = argv[1];
+	
 	char key;
 	bool exit = false;
 	bool detect = false;
-	bool overwrite = false;
 	int line_edit;
+	list<string> buffer;
 	list<string>::iterator it_aux;
 	string line_buffer = "";
-	list<string> buffer;
 	
 	ifstream file;
-	ofstream tmp;
-	file.open("new.txt");
+	file.open(filename.c_str());
 	file_load(file, buffer);
-	tmp.open("~new", ios::out | ios::trunc);
+	file.close();
 	
 	while(!exit){
 		flip_screen(buffer);
@@ -107,7 +122,7 @@ int main(int argc, char** argv) {
 			}else{
 				switch(key){
 					case 0x1B:
-						menu(detect, exit, buffer, tmp, overwrite);
+						menu(detect, exit, buffer);
 					break;
 					case 0x0D:
 						if(line_edit == getConsoleLine() - 1)
@@ -133,11 +148,5 @@ int main(int argc, char** argv) {
 		flip_screen(buffer);
 	}
 	
-	file.close();
-	tmp.close();
-	if(overwrite){
-		remove("new.txt");
-		rename("~new", "new.txt");
-	}
 	return 0;
 }
