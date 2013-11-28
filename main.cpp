@@ -43,7 +43,11 @@ void save(list<string> &buffer){
 	tmp.close();
 }
 
+<<<<<<< HEAD
+void menu(bool &detect, bool &exit, list<string> &buffer, bool saved, int &line_edit, list<string>::iterator &it_aux, string &line_buffer){
+=======
 void menu(bool &detect, bool &exit, list<string> &buffer){
+>>>>>>> 25573e05d193eb3031450001e8e3636e3c6579b2
 	string cmd[2];
 	flip_screen(buffer);
 	cout << ": ";
@@ -62,10 +66,60 @@ void menu(bool &detect, bool &exit, list<string> &buffer){
 				filename = cmd[1];
 			save(buffer);
 			cout << "saved";
+<<<<<<< HEAD
+			saved = true;
+=======
+>>>>>>> 25573e05d193eb3031450001e8e3636e3c6579b2
 			_sleep(1000);
 		break;
 		case 'q':
 		case 'Q':
+<<<<<<< HEAD
+			if(saved == false){
+				cout << "Deseja sair sem salvar?\nDigite 'S' para sim e 'N' para nao.\n>";
+				char aux;
+				aux = getch();
+				switch(aux){
+					case 's':
+					case 'S':
+						detect = false;
+						exit = true;
+						break;
+					case 'n':
+					case 'N':
+						menu(detect, exit, buffer, saved, line_edit, it_aux, line_buffer);
+						break;
+					default:
+					break;
+				}
+			}else{
+				detect = false;
+				exit = true;
+			}
+		break;
+		case 'e':
+		case 'E':
+			if(!(cmd[1].empty())){
+				filename = cmd[1];
+				file_load(filename, buffer);
+				detect = false;
+			}else{
+				cout << "Nome de arquivo inválido";
+				_sleep(1000);
+			}
+		break;
+		case 'd':
+		case 'D':
+			
+		break;
+		case 'm':
+		case 'M':
+			line_edit = atoi( cmd[1].c_str() );
+			it_aux = buffer.begin();
+			advance(it_aux, line_edit-1);
+			line_buffer = *it_aux;
+		break;
+=======
 			detect = false;
 			exit = true;
 		break;
@@ -80,6 +134,7 @@ void menu(bool &detect, bool &exit, list<string> &buffer){
 				_sleep(1000);
 			}
 		break;
+>>>>>>> 25573e05d193eb3031450001e8e3636e3c6579b2
 		default:
 		break;
 	}
@@ -92,6 +147,10 @@ int main(int argc, char** argv) {
 	char key;
 	bool exit = false;
 	bool detect = false;
+<<<<<<< HEAD
+	bool saved = true;
+=======
+>>>>>>> 25573e05d193eb3031450001e8e3636e3c6579b2
 	int line_edit;
 	list<string> buffer;
 	list<string>::iterator it_aux;
@@ -138,9 +197,16 @@ int main(int argc, char** argv) {
 			}else{
 				switch(key){
 					case 0x1B:
+<<<<<<< HEAD
+						menu(detect, exit, buffer, saved, line_edit, it_aux, line_buffer);
+					break;
+					case 0x0D:
+						saved = false;
+=======
 						menu(detect, exit, buffer);
 					break;
 					case 0x0D:
+>>>>>>> 25573e05d193eb3031450001e8e3636e3c6579b2
 						if(line_edit == getConsoleLine() - 1)
 							buffer.push_back(line_buffer);
 						else
@@ -148,11 +214,19 @@ int main(int argc, char** argv) {
 						detect = false;
 					break;
 					case 0x08:
+<<<<<<< HEAD
+						saved = false;
+=======
+>>>>>>> 25573e05d193eb3031450001e8e3636e3c6579b2
 						if(!line_buffer.empty())
 							line_buffer.erase(line_buffer.end()-1);
 					break;
 					default:
 						line_buffer += key;
+<<<<<<< HEAD
+						saved = false;
+=======
+>>>>>>> 25573e05d193eb3031450001e8e3636e3c6579b2
 					break;
 				}
 			}
