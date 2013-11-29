@@ -13,7 +13,10 @@ void Keyboard::detect(Instance &i){
 			cout << i.line_buffer;
 			break;
 		case 0x0D:
-			i.buffer.push_back(i.line_buffer);
+			if (i.line == i.buffer.size())
+				i.buffer.push_back(i.line_buffer);
+			else
+				i.buffer.insert(i.buffer_it, i.line_buffer);
 			i.line_buffer.clear();
 			i.update();
 			Screen::update(i);

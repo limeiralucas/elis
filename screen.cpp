@@ -46,7 +46,8 @@ void Screen::menu(Instance &i){
 	case 'e':
 		if (!(cmd[1].empty())){
 			i.filename = cmd[1];
-			File::load_to_buffer(i);
+			if (!File::load_to_buffer(i))
+				File::save(i);
 			i.line_buffer.clear();
 		}
 		break;
@@ -67,6 +68,13 @@ void Screen::menu(Instance &i){
 			}
 		}
 		else i.exit = true;
+		break;
+	case 'M':
+	case 'm':
+		if (cmd[1].empty())
+			i.changeLine(i.buffer.size());
+		else
+			i.changeLine(atoi(cmd[1].c_str()));
 		break;
 	}
 	update(i);

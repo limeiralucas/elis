@@ -17,3 +17,12 @@ void Instance::update(){
 	this->line = this->buffer.size() + 1;
 	this->saved = false;
 }
+
+void Instance::changeLine(int n){
+	if ((n > 0) && (n <= this->buffer.size())){
+		this->line = n;
+		buffer_it = this->buffer.begin();
+		advance(buffer_it, n - 1);
+		this->line_buffer = *buffer_it;
+	}
+}

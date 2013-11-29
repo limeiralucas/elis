@@ -11,6 +11,7 @@ bool File::load_to_buffer(Instance &i){
 			i.buffer.push_back(line);
 		file.close();
 		i.update();
+		i.saved = true;
 
 		return true;
 	}

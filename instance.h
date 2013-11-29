@@ -11,6 +11,7 @@ public:
 	string filename;
 	string line_buffer;
 	list<string> buffer;
+	list<string>::iterator buffer_it;
 	int line;
 	bool saved;
 	bool exit;
@@ -19,6 +20,7 @@ public:
 	Instance(string _filename);
 
 	void update();
+	void changeLine(int n);
 };
 
 #endif
