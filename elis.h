@@ -1,6 +1,7 @@
 #ifndef _ELIS_H_
 #define _ELIS_H_
 
+#include "text.h"
 #include "instance.h"
 #include "file.h"
 #include "screen.h"

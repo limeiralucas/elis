@@ -4,6 +4,7 @@
 #include <iostream>
 #include "instance.h"
 #include "file.h"
+#include <conio.h>
 
 class Screen{
 public:
