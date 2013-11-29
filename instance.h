@@ -1,26 +1,24 @@
+#ifndef _INSTANCE_H_
+#define _INSTANCE_H_
+
 #include <string>
 #include <list>
+
+using namespace std;
 
 class Instance{
 public:
 	string filename;
+	string line_buffer;
 	list<string> buffer;
 	int line;
-	bool exit = false;
+	bool saved;
+	bool exit;
+	
+	Instance(void);
+	Instance(string _filename);
 
-	Instance(string _filename){
-		this->filename = _filename;
-		this->line = 1;
-		this->exit = false;
-	}
-
-	Instance(){ 
-		this->filename = "new.txt";
-		this->line = 1;
-		this->exit = false;
-	}
-
-	void update(){
-		this->line = this->buffer.size() + 1;
-	}
+	void update();
 };
+
+#endif
