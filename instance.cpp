@@ -4,6 +4,7 @@ Instance::Instance(){
 	this->exit = false;
 	this->saved = true;
 	this->line = 1;
+	this->x = 0;
 }
 
 Instance::Instance(string _filename){
@@ -11,10 +12,12 @@ Instance::Instance(string _filename){
 	this->exit = false;
 	this->saved = true;
 	this->line = 1;
+	this->x = 0;
 }
 
 void Instance::update(){
 	this->line = this->buffer.size() + 1;
+	this->x = this->line_buffer.size();
 	this->saved = false;
 }
 

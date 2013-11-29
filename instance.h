@@ -13,6 +13,7 @@ public:
 	list<string> buffer;
 	list<string>::iterator buffer_it;
 	int line;
+	int x;
 	bool saved;
 	bool exit;
 	

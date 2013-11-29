@@ -75,6 +75,7 @@ void Screen::menu(Instance &i){
 			i.changeLine(i.buffer.size());
 		else
 			i.changeLine(atoi(cmd[1].c_str()));
+		i.update();
 		break;
 	}
 	update(i);
