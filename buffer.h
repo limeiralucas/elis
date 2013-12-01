@@ -21,6 +21,9 @@ public:
 	void change_line(int l);
 	void reset_line();
 	int getLineNumber();
+	void removeLines(int start, int end);
+	void removeLine(int l);
+	void removeLine();
 };
 
 #endif

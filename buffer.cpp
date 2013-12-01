@@ -1,3 +1,4 @@
+#include <iostream>
 #include "buffer.h"
 
 Buffer::Buffer(){
@@ -44,4 +45,33 @@ void Buffer::reset_line(){
 
 int Buffer::getLineNumber(){
 	return distance(itens.begin(), line);
+}
+
+void Buffer::removeLines(int start, int end){
+	if ((start < end) && (start > 0) && (end <= itens.size())){
+		list<string>::iterator s = itens.begin();
+		list<string>::iterator e = itens.begin();
+
+		advance(s, start - 1);
+		advance(e, end - 1);
+
+		itens.erase(s, e);
+		reset_line();
+	}
+}
+
+void Buffer::removeLine(int l){
+	if ((l > 0) && (l <= itens.size())){
+		list<string>::iterator it = itens.begin();
+		advance(it, l - 1);
+		itens.erase(it);
+		reset_line();
+	}
+}
+
+void Buffer::removeLine(){
+	if (!(itens.empty())){
+		itens.erase(line);
+		reset_line();
+	}
 }

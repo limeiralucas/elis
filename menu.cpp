@@ -83,6 +83,16 @@ void Menu::detect(Instance &i){
 			else
 				Screen::updateRange(i, atoi(cmd[1].c_str()), atoi(cmd[2].c_str()));
 			break;
+		case 'D':
+		case 'd':
+			if (cmd[1].empty())
+				i.buffer.removeLine();
+			else if (cmd[2].empty())
+				i.buffer.removeLine(atoi(cmd[1].c_str()));
+			else
+				i.buffer.removeLines(atoi(cmd[1].c_str()), atoi(cmd[2].c_str()));
+			Screen::update(i);
+			break;
 		default:
 			break;
 		}
