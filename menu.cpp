@@ -3,6 +3,7 @@
 #include "menu.h"
 #include "file.h"
 #include "text.h"
+#include "screen.h"
 
 void Menu::detect(Instance &i){
 	string line;
@@ -28,6 +29,7 @@ void Menu::detect(Instance &i){
 				i.filename = cmd[1];
 			if (!(i.filename.empty()))
 				File::save(i);
+			Screen::update(i);
 			break;
 		case 'Q':
 		case 'q':
@@ -39,6 +41,7 @@ void Menu::detect(Instance &i){
 				if (op == 'S' || op == 's')
 					i.exit = true;
 			}
+			Screen::update(i);
 			break;
 		case 'E':
 		case 'e':
@@ -46,6 +49,7 @@ void Menu::detect(Instance &i){
 				i.filename = cmd[1];
 				File::load_to_buffer(i);
 			}
+			Screen::update(i);
 			break;
 		case 'M':
 		case 'm':
@@ -56,6 +60,8 @@ void Menu::detect(Instance &i){
 			}
 			else
 				i.buffer.change_line(atoi(cmd[1].c_str()));
+
+			Screen::update(i);
 			break;
 		case 'A':
 		case 'a':
@@ -65,10 +71,17 @@ void Menu::detect(Instance &i){
 				i.buffer.change_line(atoi(cmd[1].c_str()));
 			else
 				i.buffer.change_line(i.buffer.getLineNumber());
+
+			Screen::update(i);
 			break;
-		case 't':
-			cout << *i.buffer.line;
-			getchar();
+		case 'L':
+		case 'l':
+			if (cmd[1].empty())
+				Screen::update(i);
+			else if (cmd[2].empty())
+				Screen::updateRange(i, 1, atoi(cmd[1].c_str()));
+			else
+				Screen::updateRange(i, atoi(cmd[1].c_str()), atoi(cmd[2].c_str()));
 			break;
 		default:
 			break;

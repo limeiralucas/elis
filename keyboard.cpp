@@ -21,7 +21,6 @@ void Keyboard::detect(Instance &i){
 		switch (key){
 		case 0x1B:
 			Menu::detect(i);
-			Screen::update(i);
 			cout << i.buffer.line_buffer;
 			break;
 		case 0x0D:
