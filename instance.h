@@ -2,26 +2,17 @@
 #define _INSTANCE_H_
 
 #include <string>
-#include <list>
-
-using namespace std;
+#include "buffer.h"
 
 class Instance{
 public:
 	string filename;
-	string line_buffer;
-	list<string> buffer;
-	list<string>::iterator buffer_it;
-	int line;
-	int x;
+	Buffer buffer;
+	int cursor;
 	bool saved;
 	bool exit;
 	
-	Instance(void);
-	Instance(string _filename);
-
-	void update();
-	void changeLine(int n);
+	Instance();
 };
 
 #endif
