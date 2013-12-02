@@ -29,6 +29,16 @@ void Menu::detect(Instance &i){
 				i.filename = cmd[1];
 			if (!(i.filename.empty()))
 				File::save(i);
+			else{
+				cout << "\nNome do arquivo: ";
+				string f;
+				getline(cin, f);
+				Text::trimht(f);
+				if(!(f.empty())){
+					i.filename = f;
+					File::save(i);
+				}
+			}
 			Screen::update(i);
 			break;
 		case 'Q':

@@ -2,10 +2,12 @@
 
 int main(int argc, char** argv){
 	Instance i;
-	i.filename = "teste.txt";
+	if(argv[1])
+		i.filename = argv[1];
 
 	//carregamento de arquivo
-	File::load_to_buffer(i);
+	if(!(File::load_to_buffer(i)))
+		i.buffer.line = i.buffer.itens.end();
 	Screen::update(i); //imprime o arquivo
 
 	//loop principal
