@@ -1,5 +1,6 @@
 #include "keyboard.h"
 #include "menu.h"
+#include "console.h"
 
 void Keyboard::detect(Instance &i){
 	char key = _getch();
@@ -8,10 +9,12 @@ void Keyboard::detect(Instance &i){
 		switch (key)
 		{
 		case 75:
-			//LEFT
+			if(i.cursor > 0)
+				Console::gotoxy(--i.cursor, Console::gety());
 			break;
 		case 77:
-			//RIGHT
+			if(i.cursor < i.buffer.line_buffer.size())
+				Console::gotoxy(++i.cursor, Console::gety());
 		default:
 			break;
 		}
@@ -27,18 +30,32 @@ void Keyboard::detect(Instance &i){
 			i.buffer.insert();
 			i.saved = false;
 			Screen::update(i);
-			if (i.buffer.mode == EDIT)
+			if (i.buffer.mode == EDIT){
 				cout << i.buffer.line_buffer;
+				i.cursor = i.buffer.line_buffer.size();
+			} else
+				i.cursor = 0;
 			break;
 		case 0x08:
 			if (!(i.buffer.line_buffer.empty())){
-				cout << "\b \b";
-				i.buffer.line_buffer.pop_back();
+				i.buffer.line_buffer.erase(--i.cursor, 1);
+				Screen::update(i);
+				cout << i.buffer.line_buffer;
+				Console::gotoxy(i.cursor, Console::gety());
 			}
 			break;
 		default:
-			cout << key;
-			i.buffer.line_buffer += key;
+			if(i.cursor == i.buffer.line_buffer.size()){
+				cout << key;
+				i.buffer.line_buffer += key;
+			}
+			else{
+				i.buffer.line_buffer.insert(i.cursor, 1, key);
+				Screen::update(i);
+				cout << i.buffer.line_buffer;
+				Console::gotoxy(i.cursor, Console::gety());
+			}
+			i.cursor++;
 			break;
 		}
 	}

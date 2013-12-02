@@ -2,6 +2,7 @@
 #define _SCREEN_H_
 
 #include <iostream>
+#include <cstdlib>
 #include "instance.h"
 #include "file.h"
 #include <conio.h>

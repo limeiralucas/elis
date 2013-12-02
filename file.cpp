@@ -4,7 +4,7 @@ bool File::load_to_buffer(Instance &i){
 	ifstream file;
 	string line;
 
-	file.open(i.filename);
+	file.open(i.filename.c_str());
 	if (file.is_open()){
 		while (getline(file, line))
 			i.buffer.itens.push_back(line);
