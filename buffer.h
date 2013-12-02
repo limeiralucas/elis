@@ -6,7 +6,7 @@
 
 using namespace std;
 
-enum Mode{ INSERT, EDIT };
+enum Mode{ INSERT, EDIT, INSERT_AFTER };
 
 class Buffer{
 public:
@@ -16,6 +16,7 @@ public:
 	Mode mode;
 
 	Buffer();
+	void insert_after();
 	void insert(string str);
 	void insert();
 	void change_line(int l);

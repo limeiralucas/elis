@@ -15,14 +15,22 @@ void Buffer::insert(){
 		else
 		{
 			list<string>::iterator aux = line;
-			aux++;
-			itens.insert(aux++, line_buffer);
+			itens.insert(++aux, line_buffer);
+			line++;
 		}
 		line_buffer.clear();
 	}
-	else
+	else if(mode == EDIT)
 	{
 		*line = line_buffer;
+	}
+	else{
+		list<string>::iterator aux = line;
+		if(line != itens.begin())
+		{
+			itens.insert(aux, line_buffer);
+		}
+		line_buffer.clear();
 	}
 }
 

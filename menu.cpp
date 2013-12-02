@@ -103,6 +103,17 @@ void Menu::detect(Instance &i){
 				i.buffer.removeLines(atoi(cmd[1].c_str()), atoi(cmd[2].c_str()));
 			Screen::update(i);
 			break;
+		case 'I':
+		case 'i':
+			i.buffer.line_buffer.clear();
+			i.buffer.mode = INSERT_AFTER;
+			if (!(cmd[1].empty()))
+				i.buffer.change_line(atoi(cmd[1].c_str()));
+			else
+				i.buffer.change_line(i.buffer.getLineNumber());
+
+			Screen::update(i);
+			break;
 		default:
 			break;
 		}
