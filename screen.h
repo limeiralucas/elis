@@ -9,7 +9,8 @@
 
 class Screen{
 public:
-	static void clear(){ system("cls"); }
+	static void clear();
+	static void help();
 	static void update(Instance &i);
 	static void updateRange(Instance &i, int start, int end);
 };

@@ -114,6 +114,10 @@ void Menu::detect(Instance &i){
 
 			Screen::update(i);
 			break;
+		case 'H':
+		case 'h':
+			Screen::help();
+			break;
 		default:
 			break;
 		}

@@ -1,6 +1,14 @@
 #include "screen.h"
 #include "text.h"
 
+void Screen::clear(){
+	system("cls");
+}
+
+void Screen::help(){
+	getchar();
+}
+
 void Screen::update(Instance &i){
 	int cnt = 1;
 	

@@ -16,7 +16,6 @@ public:
 	Mode mode;
 
 	Buffer();
-	void insert_after();
 	void insert(string str);
 	void insert();
 	void change_line(int l);
