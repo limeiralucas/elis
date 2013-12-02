@@ -39,7 +39,7 @@ void Menu::detect(Instance &i){
 					File::save(i);
 				}
 			}
-			Screen::update(i);
+			//Screen::update(i);
 			break;
 		case 'Q':
 		case 'q':
@@ -51,7 +51,7 @@ void Menu::detect(Instance &i){
 				if (op == 'S' || op == 's')
 					i.exit = true;
 			}
-			Screen::update(i);
+			//Screen::update(i);
 			break;
 		case 'E':
 		case 'e':
@@ -59,7 +59,7 @@ void Menu::detect(Instance &i){
 				i.filename = cmd[1];
 				File::load_to_buffer(i);
 			}
-			Screen::update(i);
+			//Screen::update(i);
 			break;
 		case 'M':
 		case 'm':
@@ -71,7 +71,7 @@ void Menu::detect(Instance &i){
 			else
 				i.buffer.change_line(atoi(cmd[1].c_str()));
 
-			Screen::update(i);
+			//Screen::update(i);
 			break;
 		case 'A':
 		case 'a':
@@ -82,7 +82,7 @@ void Menu::detect(Instance &i){
 			else
 				i.buffer.change_line(i.buffer.getLineNumber());
 
-			Screen::update(i);
+			//Screen::update(i);
 			break;
 		case 'L':
 		case 'l':
@@ -100,8 +100,8 @@ void Menu::detect(Instance &i){
 			else if (cmd[2].empty())
 				i.buffer.removeLine(atoi(cmd[1].c_str()));
 			else
-				i.buffer.removeLines(atoi(cmd[1].c_str()), atoi(cmd[2].c_str()));
-			Screen::update(i);
+				i.buffer.removeLines(atoi(cmd[1].c_str()), atoi(cmd[2].c_str()) + 1);
+			//Screen::update(i);
 			break;
 		case 'I':
 		case 'i':
@@ -112,7 +112,7 @@ void Menu::detect(Instance &i){
 			else
 				i.buffer.change_line(i.buffer.getLineNumber());
 
-			Screen::update(i);
+			//Screen::update(i);
 			break;
 		case 'H':
 		case 'h':

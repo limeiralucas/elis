@@ -6,7 +6,12 @@ void Screen::clear(){
 }
 
 void Screen::help(){
-	getchar();
+	clear();
+	cout << "<ENTER> - Passa para a proxima linha\n<ESC> Alterna para o modo de comando\nW [<name>]";
+	cout << " - Salvar arquivo\nE [name] - Carregar arquivo\nI [n] - Insere texto antes da linha n\nA [n]";
+	cout << " - Insere texto depois da linha n\nM [n] - Torna n a linha atual\nD [n[m]] - Remove linhas de n até m\nL [n[m]]";
+	cout << " - Lista linhas de m até n\nH - ajuda\nQ - Sair ";
+	_getch();
 }
 
 void Screen::update(Instance &i){
